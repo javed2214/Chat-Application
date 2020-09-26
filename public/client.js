@@ -8,8 +8,8 @@ var audio = new Audio('ting.mp3')
 
 do{
     name = prompt("Enter your Name: ")
-} while(!(name.length >= 1 && name.length <= 12))
-
+} while((name == null || name == "" || !(name.length >= 1 && name.length <= 12)))
+console.log(name)
 textarea.addEventListener('keyup', (e) => {
     if(e.key == 'Enter'){
         sendMessage(e.target.value)
