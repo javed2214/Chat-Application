@@ -38,7 +38,7 @@ section.chat__section {
 
 .brand img {
     margin: auto;
-    margin-left: 380px;
+    /* margin-left: 380px; */
 }
 
 .message__area{
@@ -111,7 +111,7 @@ textarea {
 
 #online {
     float: left;
-    margin-right: 10px;
+    margin-right: 5px;
     color: hotpink;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
