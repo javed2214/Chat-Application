@@ -97,6 +97,7 @@ textarea {
     margin: auto;
     color: green;
     margin: 10px;
+    padding-bottom: 20px;
 }
 
 #userleft {
@@ -105,6 +106,7 @@ textarea {
     margin: auto;
     color: rgb(150, 81, 3);
     margin: 10px;
+    padding-bottom: 20px;
 }
 
 #online {
