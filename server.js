@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
         for (const property in users) {
             console.log(`${property}: ${users[property]}`);
         }
-
+        io.to(socket.id).emit('welcome', name)
         io.emit('onlineusers', cnt)
         io.emit('users-join', users)
     })

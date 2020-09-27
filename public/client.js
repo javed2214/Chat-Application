@@ -20,6 +20,10 @@ socket.on('user-joined', name => {
     appendMessage(`${name} joined the Chat`, 'newuser')
 })
 
+socket.on('welcome', name => {
+    appendMessage(`Welcome ${name} !!!`, 'welcome')
+})
+
 textarea.addEventListener('keyup', (e) => {
     if(e.key == 'Enter'){
         sendMessage(e.target.value)
@@ -52,7 +56,7 @@ function sendMessage(message){
 function appendMessage(msg, type){
     let mainDiv = document.createElement('div')
     let className = type
-    if(type != 'newuser' && type != 'left') mainDiv.classList.add(className, 'message')
+    if(type != 'newuser' && type != 'left' && type != 'welcome') mainDiv.classList.add(className, 'message')
 
     let markup;
 
@@ -69,6 +73,10 @@ function appendMessage(msg, type){
 
     else if(type == 'left'){
         markup = `<h5 id="userleft">&nbsp;&nbsp;&nbsp;${msg} Left</h5>`
+    }
+
+    else if(type == 'welcome'){
+        markup = `<div id="welcome">${msg}</div>`
     }
     
     else{
