@@ -38,6 +38,7 @@ section.chat__section {
 
 .brand img {
     margin: auto;
+    margin-left: 380px;
 }
 
 .message__area{
@@ -88,4 +89,27 @@ textarea {
 }
 textarea {
     resize: none;
+}
+
+#userjoined {
+    position: relative;
+    text-align: center;
+    margin: auto;
+    color: green;
+    margin: 10px;
+}
+
+#userleft {
+    position: relative;
+    text-align: center;
+    margin: auto;
+    color: rgb(150, 81, 3);
+    margin: 10px;
+}
+
+#online {
+    float: left;
+    margin-right: 10px;
+    color: hotpink;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }

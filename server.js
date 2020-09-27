@@ -18,16 +18,40 @@ app.get('/', (req, res) => {
 // Socket.IO
 
 const io = require('socket.io')(http)
+const users = {};
+var cnt = 0;
+var login_user = ""
 
 io.on('connection', (socket) => {
+    // console.log(users)
+    
     console.log("Connected...")
+
+    socket.on('new-user-joined', name => {
+        console.log("New User: ", name)
+        login_user += name + " "
+        cnt += 1
+        users[socket.id] = name;
+        socket.broadcast.emit('user-joined', name)
+        for (const property in users) {
+            console.log(`${property}: ${users[property]}`);
+        }
+
+        io.emit('onlineusers', cnt)
+        io.emit('users-join', users)
+    })
 
     socket.on('message', (msg) => {
         socket.broadcast.emit('message', msg)
     })
 
-    // socket.on('disconnect', (msg) => {
-    //     socket.broadcast.emit('disconnect', msg);
-    //     delete msg.user
-    // });
+    socket.on('disconnect', name => {
+        console.log(users[socket.id]);
+        socket.broadcast.emit('left', users[socket.id])
+        delete users[socket.id];
+        cnt -= 1;
+        io.emit('onlineusers', cnt)
+        io.emit('users-left', users)
+      });
+
 })
