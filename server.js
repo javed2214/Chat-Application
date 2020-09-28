@@ -21,37 +21,55 @@ const io = require('socket.io')(http)
 const users = {};
 var cnt = 0;
 var login_user = ""
+const room_map = {};
+const online_users = {};
+var d;
+const flag = {}
 
 io.on('connection', (socket) => {
     // console.log(users)
     
     console.log("Connected...")
 
-    socket.on('new-user-joined', name => {
+    socket.on('new-user-joined', (data, name) => {
+        d = data
+        if(flag[data.r] == 1){
+            online_users[data.r] += 1
+        }else{
+            flag[data.r] = 1
+            online_users[data.r] = 0;
+        }
+        room_map[socket.id] = data.r
+        console.log(online_users)
+        console.log(room_map)
+        socket.join(data.r);
+        console.log(data.r)
         console.log("New User: ", name)
         login_user += name + " "
         cnt += 1
         users[socket.id] = name;
-        socket.broadcast.emit('user-joined', name)
+        socket.to(data.r).emit('user-joined', name)
         for (const property in users) {
             console.log(`${property}: ${users[property]}`);
         }
         io.to(socket.id).emit('welcome', name)
-        io.emit('onlineusers', cnt)
-        io.emit('users-join', users)
+        io.in(data.r).emit('onlineusers', online_users[data.r])
+        // io.emit('users-join', users)
     })
 
-    socket.on('message', (msg) => {
-        socket.broadcast.emit('message', msg)
+    socket.on('message', (msg, data) => {
+        socket.to(data.r).emit('message', msg);
+        // socket.broadcast.emit('message', msg)
     })
 
     socket.on('disconnect', name => {
         console.log(users[socket.id]);
-        socket.broadcast.emit('left', users[socket.id])
+        online_users[room_map[socket.id]] -= 1
+        socket.to(room_map[socket.id]).emit('left', users[socket.id])
         delete users[socket.id];
         cnt -= 1;
-        io.emit('onlineusers', cnt)
-        io.emit('users-left', users)
+        io.in(room_map[socket.id]).emit('onlineusers', online_users[room_map[socket.id]])
+        // io.emit('users-left', users)
       });
 
 })

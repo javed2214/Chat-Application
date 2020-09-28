@@ -13,7 +13,16 @@ do{
     name = prompt("Enter your Name: ")
 } while((name == null || name == "" || !(name.length >= 1 && name.length <= 12)))
 
-socket.emit('new-user-joined', name)
+do{
+    room = prompt("Enter Room Name: ")
+} while(room == null || room == "")
+
+data = {
+    n: name,
+    r: room
+}
+
+socket.emit('new-user-joined', data, name)
 
 socket.on('user-joined', name => {
     console.log("$$$$")
@@ -49,7 +58,7 @@ function sendMessage(message){
         textarea.value = ''
 
         // Send to Server
-        socket.emit('message', msg)
+        socket.emit('message', msg, data)
     }
 }
 
