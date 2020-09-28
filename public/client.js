@@ -25,7 +25,7 @@ data = {
 socket.emit('new-user-joined', data, name)
 
 socket.on('user-joined', name => {
-    console.log("$$$$")
+    // console.log("$$$$")
     appendMessage(`${name} joined the Chat`, 'newuser')
 })
 
@@ -46,7 +46,7 @@ function sendMessage(message){
     }
     
     // Append Message
-    console.log(message)
+    // console.log(message)
     if(message.length == 1){
         textarea.value = ''
         confirm("Message Cannot be Empty!")
@@ -69,10 +69,10 @@ function appendMessage(msg, type){
 
     let markup;
 
-    console.log(type)
+    // console.log(type)
     
     if(type == 'incoming'){
-        console.log("Audio Played")
+        // console.log("Audio Played")
         audio.play();
     }
 
@@ -111,7 +111,7 @@ socket.on('message', (msg) => {
 })
 
 socket.on('left', name => {
-    console.log(name)
+    // console.log(name)
     appendMessage(name, 'left')
 })
 
@@ -121,18 +121,18 @@ socket.on('onlineusers', cnt => {
 
 socket.on('users-join', users => {
     tx1 = ""
-    console.log(users)
+    // console.log(users)
     for (const property in users) {
         tx1 += users[property] + " "
     }
-    console.log(tx1)
+    // console.log(tx1)
 })
 
 socket.on('users-left', users => {
     tx2 = ""
-    console.log(users)
+    // console.log(users)
     for (const property in users) {
         tx2 += users[property] + " "
     }
-    console.log(tx2)
+    // console.log(tx2)
 })

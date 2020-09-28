@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
             online_users[data.r] += 1
         }else{
             flag[data.r] = 1
-            online_users[data.r] = 0;
+            online_users[data.r] = 1;
         }
         room_map[socket.id] = data.r
         console.log(online_users)
