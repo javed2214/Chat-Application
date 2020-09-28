@@ -1,9 +1,12 @@
+// Client Side Code
+
 const socket = io()
 
 let name;
 let textarea = document.querySelector('#textarea')
 let messageArea = document.querySelector('.message__area')
 let onl = document.querySelector('#online')
+let roomdata = document.querySelector('#roomdata')
 let tx1 = ""
 let tx2 = ""
 
@@ -14,12 +17,12 @@ do{
 } while((name == null || name == "" || !(name.length >= 1 && name.length <= 12)))
 
 do{
-    room = prompt("Enter Room Name: ")
+    room = prompt("Enter Lobby ID: ")
 } while(room == null || room == "")
 
 data = {
     n: name,
-    r: room
+    r: room.toUpperCase()
 }
 
 socket.emit('new-user-joined', data, name)
@@ -117,6 +120,10 @@ socket.on('left', name => {
 
 socket.on('onlineusers', cnt => {
     onl.innerHTML = "Users Online: " + cnt
+})
+
+socket.on('roomdata', id => {
+    roomdata.innerHTML = "Lobby ID: " + id
 })
 
 socket.on('users-join', users => {

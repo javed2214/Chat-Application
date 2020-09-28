@@ -1,3 +1,5 @@
+// Server Side Code
+
 const express = require('express')
 const app = express()
 
@@ -54,6 +56,7 @@ io.on('connection', (socket) => {
         }
         io.to(socket.id).emit('welcome', name)
         io.in(data.r).emit('onlineusers', online_users[data.r])
+        io.in(data.r).emit('roomdata', data.r)
         // io.emit('users-join', users)
     })
 
@@ -68,7 +71,11 @@ io.on('connection', (socket) => {
         socket.to(room_map[socket.id]).emit('left', users[socket.id])
         delete users[socket.id];
         cnt -= 1;
+        if(online_users[room_map[socket.id]] == 0){
+            delete online_users[room_map[socket.id]]
+        }
         io.in(room_map[socket.id]).emit('onlineusers', online_users[room_map[socket.id]])
+        delete room_map[socket.id]
         // io.emit('users-left', users)
       });
 
