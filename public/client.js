@@ -2,7 +2,8 @@
 
 const socket = io()
 
-let name;
+let name  = "POP";
+let room = "XOP"
 let textarea = document.querySelector('#textarea')
 let messageArea = document.querySelector('.message__area')
 let onl = document.querySelector('#online')
@@ -143,3 +144,5 @@ socket.on('users-left', users => {
     }
     // console.log(tx2)
 })
+
+

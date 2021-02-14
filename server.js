@@ -1,20 +1,47 @@
 // Server Side Code
 
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
 const express = require('express')
 const app = express()
 
-const http = require('http').createServer(app)
+require('./models/db')
+const passport = require('passport')
+const flash = require('express-flash')
+const session = require('express-session')
+const bodyParser = require('body-parser')
+
+require('./passport-config')(passport)
 
 const PORT = process.env.PORT || 3000
 
-http.listen(PORT, () => {
-    console.log(`Listning on Port ${PORT}`)
+const http = app.listen(PORT, () => {
+    console.log(`Listening on Port ${PORT}`)
 })
 
 app.use(express.static(__dirname + '/public'))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.set('view engine', 'ejs')
 
+app.use(flash())
+
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        maxAge: 3600 * 1000         // 1 hour
+    }
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use('/', require('./routes/route'))
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
+    res.redirect('/register')
 })
 
 // Socket.IO

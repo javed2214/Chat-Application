@@ -135,3 +135,9 @@ textarea {
     color: hotpink;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+a {
+    text-decoration: none;
+    margin: auto;
+    size: 20px;
+}
