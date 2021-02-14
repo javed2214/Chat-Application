@@ -10,14 +10,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 70vh;
     /* background: #be0ca7; */
     font-family: 'Roboto', sans-serif;
 }
 section.chat__section {
-    width: 800px;
-    max-width: 90%;
-    background: rgb(171, 160, 196);
+    width: 820px;
+    max-width: 100%;
+    background: rgb(142, 161, 179);
     /* border: 2px solid black; */
     border-radius: 5px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -42,7 +42,7 @@ section.chat__section {
 }
 
 .message__area{
-    height: 500px;
+    height: 630px;
     padding: 16px;
     display: flex;
     flex-direction: column;
